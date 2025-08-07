@@ -20,6 +20,7 @@
 
 .admin-dashboard-container button {
   padding: 0.6rem 1.5rem;
+  margin: 0.2rem;
   background-color: #222;
   color: white;
   border: none;

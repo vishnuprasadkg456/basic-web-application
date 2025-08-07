@@ -5,7 +5,7 @@ import cors from 'cors';
 import { protect } from './middleware/auth.js';
 import authRoutes from './routes/authRoutes.js';
 import userRoutes from './routes/userRoutes.js'
-
+import adminRoutes from './routes/adminRoutes.js'
 dotenv.config();
 
 const app = express();
@@ -19,6 +19,7 @@ app.use(express.json());
 
 app.use('/api/auth',authRoutes);
 app.use('/api/user',userRoutes);
+app.use('/api/admin',adminRoutes);
 
 app.get('/api/user/profile', protect, (req, res) => {
   console.log("📩 /api/user/profile hit");

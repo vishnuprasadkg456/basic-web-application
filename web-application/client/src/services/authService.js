@@ -10,6 +10,7 @@ const login = async (email, password, role) => {
 
   const response = await axios.post(endPoint, { email, password });
 
+  
   console.log("Response received:", response);
 
   return response.data;

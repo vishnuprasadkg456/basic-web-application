@@ -58,8 +58,14 @@ const UserAuth = () =>{
 
     };
 
-    useEffect(()=>{
-        if(user && user.user.role === 'user'){
+    // useEffect(()=>{
+    //     if(user && user.user.role === 'user'){
+    //         navigate('/user/home');
+    //     }
+    // },[user,navigate]);
+
+      useEffect(()=>{
+        if (user?.role === 'user'){
             navigate('/user/home');
         }
     },[user,navigate]);
@@ -68,7 +74,7 @@ const UserAuth = () =>{
 
         <div className="auth-page">
             <form onSubmit={handleSubmit} className="auth-form">
-              <h2>{isLoginMode?'Login' : 'Sign Up'}</h2>
+              <h2>{isLoginMode?'User Login' : 'Sign Up'}</h2>
 
               {error && (<p className="error-msg" >{error}</p>)}
 

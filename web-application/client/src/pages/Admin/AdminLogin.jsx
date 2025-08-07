@@ -13,13 +13,21 @@ const AdminLogin = () => {
 
   const { user, loading, error } = useSelector((state) => state.auth);
 
+//   useEffect(() => {
+//     console.log("USER OBJECT IN useEffect:", user); 
+//     if (user && user.role === "admin") {
+//       navigate("/admin/dashboard");
+//     }
+//   }, [user, navigate]);
+
+
+
   useEffect(() => {
     console.log("USER OBJECT IN useEffect:", user); 
-    if (user && user.role === "admin") {
-      navigate("/admin/dashboard");
-    }
+  if (user?.role === 'admin') {
+  navigate('/admin/dashboard');
+}
   }, [user, navigate]);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("About to dispatch loginUser...");
