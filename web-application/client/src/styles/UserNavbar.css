@@ -1,0 +1,48 @@
+.user-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1f2937;
+  padding: 1rem 2rem;
+  color: white;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: default;
+}
+
+.profile-icon {
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.user-navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background: #f0f0f0;
+  align-items: center;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.profile-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.logout-btn {
+  padding: 5px 10px;
+  background-color: #e53935;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
