@@ -20,7 +20,7 @@ const UserHome = ()=>{
         <>
         <UserNavbar/>
         <div className="user-home">
-           <h1>Welcome, {user?.user?.name || "Guest"}</h1>
+           <h1>Welcome, {user?.name || "Guest"}</h1>
 
             <p> How are you </p>
         </div>

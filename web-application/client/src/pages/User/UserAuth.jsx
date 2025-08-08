@@ -11,14 +11,15 @@ const UserAuth = () =>{
     const [isLoginMode,setIsLoginMode]=useState(true);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const {user,loading}=useSelector((state)=>state.auth);
+    const {user}=useSelector((state)=>state.auth);
     const [error,setError] = useState('');
-
+    const [formError, setFormError] = useState("");
     const [formData,setFormData] = useState({
         name:'',
         email:'',
         password:'',
     });
+    const [loading, setLoading] = useState(false);
 
     const toggleMode = () => {
         setError('');
@@ -32,30 +33,56 @@ const UserAuth = () =>{
         }));
     }
 
+    const validate = ()=>{
+          if (!formData.email.match(/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
+      setFormError("Please enter a valid email.");
+      return false;
+    }
+    if (formData.password.length < 6) {
+      setFormError("Password must be at least 6 characters.");
+      return false;
+    }
+    if (!isLoginMode && !formData.name.trim()) {
+      setFormError("Name is required for signup.");
+      return false;
+    }
+    setFormError("");
+    return true;
+    }
+
     const handleSubmit = async (e)=>{
         e.preventDefault();
+         if (!validate()) return;
         setError('');
-
-        if(isLoginMode){  // login
-            dispatch(loginUser({
-                email:formData.email,
-                password:formData.password,
-                role:'user'
-            }));
-        }else{
-              
-            try{
+        setLoading(true);
+        try {
+            if(isLoginMode){  // login
+                await dispatch(loginUser({
+                    email:formData.email,
+                    password:formData.password,
+                    role:'user'
+                })).unwrap();
+            }else{
+                  
                 await axios.post('/api/auth/user/register',formData);
                 dispatch(loginUser({
                     email: formData.email,
-                    password:formData.password,
+                    password: formData.password,
                     role:'user'
                 }));
-            }catch(err){
-                setError(err.response?.data?.message||"Signup Failed");
+            } 
+        } catch (err) {
+         
+            if (err?.message?.toLowerCase().includes("not found")) {
+              setFormError("User not found. Please sign up first.");
+            } else if (err?.message?.toLowerCase().includes("invalid")) {
+              setFormError("Invalid credentials.");
+            } else {
+              setFormError("Login failed. Please try again.");
             }
-        }
-
+          } finally {
+            setLoading(false);
+          }
     };
 
     // useEffect(()=>{
@@ -106,6 +133,8 @@ const UserAuth = () =>{
                onChange={handleChange}
                required 
                />
+
+                {formError && <p className="error-msg">{formError}</p>}
 
                <button type="submit" disabled={loading} >
                 {loading?'Please wait...' : isLoginMode? 'Login' : 'Sign up'}

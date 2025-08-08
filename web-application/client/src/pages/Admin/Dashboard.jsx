@@ -152,7 +152,7 @@ const AdminDashboard = () => {
   );
 };
 
-// Simple modal component for create/edit user
+// create/edit user modal
 const UserModal = ({ user, onClose, onSubmit }) => {
   const [form, setForm] = useState({
     name: user?.name || "",
